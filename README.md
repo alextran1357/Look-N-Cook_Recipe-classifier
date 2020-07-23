@@ -2,8 +2,9 @@
 
 This project aims to find the recipe hidden in a recipe website since the writter often talks about their life stories in the beginning that no one cares about.
 
-This project was not originally made by one person but I have decided to split up and work on it myself.
 
+## Contribution
+This project was not originally made by one person but I have decided to split up and work on it myself.
 Other contibutors:
 https://github.com/TachiaHenry
 https://github.com/jose559
