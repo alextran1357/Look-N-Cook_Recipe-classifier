@@ -8,10 +8,10 @@ This revision will be using transferred learning. I could use RNNs or CNNs but t
 
 ### Machine learning task list
 ```[tasklist]
-- [] Pick model
-- [] Create new structured classification data
-- [] Data preprocessing
-- [] Tune model
+[] Pick model
+[] Create new structured classification data
+[] Data preprocessing
+[] Tune model
 ```
 
 # Contribution
