@@ -16,5 +16,7 @@ Now comes the annoying part. We need the data. Luckily, this original project ha
 ```
 I will need to preprocess the data but that's in the next section.
 
+*update: it seems like my coding has gotten a lot better through the years, i was able to optimize a lot of things which is good to see improvements
+
 ## **[] Data preprocessing**
 ## **[] Tune model**
