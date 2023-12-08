@@ -51,9 +51,11 @@ extract
 fennel
 feta
 fillet
+foil
 fridge
 garlic
 gelatin
+generously
 gram
 grams
 gratin
@@ -62,6 +64,7 @@ grease
 grenadine
 juniper
 jus
+ketchup
 lard
 large
 leaf
@@ -73,6 +76,7 @@ marjoram
 marzipan
 meal
 medium
+membrane
 mersala
 milligram
 mousse
@@ -110,6 +114,7 @@ puree
 quart
 quiche
 refrigerator
+ribs
 romaine
 romano
 rosemary
@@ -142,9 +147,11 @@ tarragon
 tbone
 teaspoon
 temperature
+tender
 teriyaki
 thyme
 truffle
 turmeric
+vinegar
 worcestershire
 zabaglione
