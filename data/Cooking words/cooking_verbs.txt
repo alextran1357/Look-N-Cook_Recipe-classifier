@@ -11,11 +11,12 @@ carve
 caramelize
 combine
 chop
+cut
 coddle
 curdle
 drizzle
 dollop
-dissolve
+dissolve`
 deglaze
 degrease
 flake
