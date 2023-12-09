@@ -20,5 +20,12 @@ I will need to preprocess the data but that's in the next section.
 
 *Update: All the scripts are done. Now I just need to get more data manually which will take a while
 
+*Update: Now that we are in the data gathering section. I need to make sure that there will be equal data. This means I will be gather a 50/50 split of recipe and non recipe sentences. 
+Non recipe sentences will need to a varity of sentnce ranging from:
+- random sentence written officially like news articles and books. 
+- unofficial sentences from threads and blogs
+Recipe sentences will also need to come from a variety of places too like cooking websites, cooking books, and online forums.
+The data gathering will take a little bit longer because I am not just looking for cooking related sentences, I am looking speicifically for recipe instructions so getting a good 50/50 split will be hard.
+
 ## **[] Data preprocessing**
 ## **[] Tune model**
