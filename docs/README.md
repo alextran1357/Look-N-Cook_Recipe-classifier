@@ -27,5 +27,8 @@ Non recipe sentences will need to a varity of sentnce ranging from:
 Recipe sentences will also need to come from a variety of places too like cooking websites, cooking books, and online forums.
 The data gathering will take a little bit longer because I am not just looking for cooking related sentences, I am looking speicifically for recipe instructions so getting a good 50/50 split will be hard.
 
+*Update: After a couple of tries of using my original scorer, it doesn't classify as well as I want it to. 
+I will be switch to a different method. Now, I will use 2 different files for uncleand data. One for only 'True' data, and another for 'False' data. This will require a little bit more work for me since I will now have to make sure I put them in the correct location. I also have to setup a new script to process the data.
+
 ## **[] Data preprocessing**
 ## **[] Tune model**
