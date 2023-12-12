@@ -8,19 +8,19 @@ file_path = "data/Sentence Scorer Data/filtered_final.json"
 with open(file_path, 'r') as fp:
     score_dict = json.load(fp)
     
-# Access verb text file
-file_path = "data/Cooking words/cooking_verbs.txt"
-f = open(file_path, "r")
-cooking_verbs = f.read()
+# # Access verb text file
+# file_path = "data/Cooking words/cooking_verbs.txt"
+# f = open(file_path, "r")
+# cooking_verbs = f.read()
     
-# Acess noun text file
-file_path = "data/Cooking words/cooking_nouns.txt"
-f = open(file_path, "r")
-cooking_nouns = f.read()
+# # Acess noun text file
+# file_path = "data/Cooking words/cooking_nouns.txt"
+# f = open(file_path, "r")
+# cooking_nouns = f.read()
 
 # Access unclean text file FALSE
 file_path = "data/unclean_data-FALSE.txt"
-f = open(file_path, "r")
+f = open(file_path, "r", encoding="utf-8")
 output = f.read()
 false_data = re.split('[.!?]', output.lower())
 if "" in false_data:
@@ -28,7 +28,7 @@ if "" in false_data:
     
 # Access unclean text file TRUE
 file_path = "data/unclean_data-TRUE.txt"
-f = open(file_path, "r")
+f = open(file_path, "r", encoding="utf-8")
 output = f.read()
 true_data = re.split('[.!?]', output.lower())
 if "" in true_data:
@@ -38,20 +38,23 @@ if "" in true_data:
 def remove_unknown_chars(string):
     allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ")
     return ''.join(c for c in string if c in allowed_chars)
+def remove_single_word_sentences(sentence):
+    word_list = sentence.split()
+    if len(word_list) <= 2:
+        return ""
+    return sentence
 
 for i, sentence in enumerate(true_data):
     true_data[i] = sentence.replace('\n', '').replace(',', '').strip()
-    # true_data[i] = new_sentence.split(" ")
-    for k in range(len(true_data[i])):
-        true_data[i] = remove_unknown_chars(true_data[i])
+    true_data[i] = remove_unknown_chars(true_data[i])
+    true_data[i] = remove_single_word_sentences(true_data[i])
     if true_data[i] == "":
         true_data.remove("")
 
 for i, sentence in enumerate(false_data):
     false_data[i] = sentence.replace('\n', '').replace(',', '').strip()
-    # false_data[i] = new_sentence.split(" ")
-    for k in range(len(false_data[i])):
-        false_data[i] = remove_unknown_chars(false_data[i])
+    false_data[i] = remove_unknown_chars(false_data[i])
+    false_data[i] = remove_single_word_sentences(false_data[i])
     if false_data[i] == "":
         false_data.remove("")
         
@@ -99,15 +102,10 @@ with open(file_path, 'a', newline='', encoding='utf-8') as file:
         writer.writerow([key, value])
         
         
-# Want to make sure to delete everything from the unclean.txt file
-# Access unclean text file FALSE
+# Empty out unclean data text files
 file_path = "data/unclean_data-FALSE.txt"
 with open(file_path, 'w') as file:
-    for item in cooking_nouns:
-        file.write("")
-        
-# Access unclean text file TRUE
+    pass
 file_path = "data/unclean_data-TRUE.txt"
 with open(file_path, 'w') as file:
-    for item in cooking_nouns:
-        file.write("")
+    pass
