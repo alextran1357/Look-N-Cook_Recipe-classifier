@@ -90,7 +90,7 @@ for sentence in false_data:
     
 # Write results to csv
 # I want to make sure to write to a staging file first to make sure that the information is correct
-file_path = "data/binary_class_senences-stage.csv"
+file_path = "data/binary_class_sentences-stage.csv"
 with open(file_path, 'a', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
     for key, value in false_dict.items():
