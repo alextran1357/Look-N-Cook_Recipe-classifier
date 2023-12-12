@@ -155,6 +155,7 @@ cython_debug/
 # data file
 data/unclean_data.txt
 data/Unclean_data.txt
+data/binary_class_senences-stage.csv
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
