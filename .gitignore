@@ -155,7 +155,7 @@ cython_debug/
 # data file
 data/unclean_data-FALSE.txt
 data/unclean_data-TRUE.txt
-data/binary_class_senences-stage.csv
+data/binary_class_sentences-stage.csv
 data/food_list.txt
 
 # PyCharm
