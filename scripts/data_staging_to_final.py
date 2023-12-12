@@ -13,3 +13,7 @@ with open(target_csv_path, 'a', newline='', encoding='utf-8') as target_file:
         # Append each row from the source file to the target file
         for row in reader:
             writer.writerow(row)
+
+# Emptying file
+with open(source_csv_path, "w", encoding='utf-8') as source_file:
+    pass
