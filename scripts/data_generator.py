@@ -36,7 +36,7 @@ if "" in true_data:
 
 # Data cleaning
 def remove_unknown_chars(string):
-    allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ")
+    allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789()/- ")
     return ''.join(c for c in string if c in allowed_chars)
 def remove_single_word_sentences(sentence):
     word_list = sentence.split()
