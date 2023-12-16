@@ -32,3 +32,6 @@ I will be switch to a different method. Now, I will use 2 different files for un
 
 ## **[] Data preprocessing**
 ## **[] Tune model**
+
+## **[] Extension**
+After starting on this extension, I have come to thte conclusion that DistilBERT is too large of a model if i want to keep this extension working without the need for a server to host the model. I will be testing TinyBERT and possibily ALBERT
