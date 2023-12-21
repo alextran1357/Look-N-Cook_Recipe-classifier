@@ -1,63 +1,71 @@
-from transformers import DistilBertTokenizer, DistilBertForSequenceClassification, Trainer, TrainingArguments
-import torch
-from torch.utils.data import Dataset
+import spacy
 import pandas as pd
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.base import TransformerMixin
+from sklearn.pipeline import Pipeline, FeatureUnion
+import joblib
 
-tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
-model = DistilBertForSequenceClassification.from_pretrained('distilbert-base-uncased')
-
-# Setup the training arguments
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-# data
-class CustomDataset(Dataset):
-    def __init__(self, encodings, labels):
-        self.encodings = encodings
-        self.labels = labels
-    def __getitem__(self, idx):
-        item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
-        item['labels'] = torch.tensor(self.labels[idx])
-        return item
-    def __len__(self):
-        return len(self.labels)
-
-def tokenize_data(df, tokenizer):
-    return tokenizer(df["Text"].tolist(), padding=True, truncation=True, return_tensors='pt')
+nlp = spacy.load('en_core_web_sm')
 
 file_path = "data/binary_class_sentences.csv"
 df = pd.read_csv(file_path, header=None, names=['Text', 'Label'])
-train_dataset, eval_dataset = train_test_split(df)
+df['Label'] = df['Label'].astype(int)
 
-# Grab labels
-train_labels = train_dataset["Label"].tolist()
-eval_labels = eval_dataset["Label"].tolist()
+texts = df['Text'].tolist()
+labels = df['Label'].tolist()
 
-# Tokenize data
-tokenized_train_dataset = tokenize_data(train_dataset, tokenizer)
-tokenized_eval_dataset = tokenize_data(eval_dataset, tokenizer)
+class TfidfWeightedVectors(TransformerMixin):
+    def fit(self, X, y=None):
+        # Initialize and fit the TfidfVectorizer
+        self.vectorizer = TfidfVectorizer()
+        self.vectorizer.fit(X)
+        self.max_idf = max(self.vectorizer.idf_)  # To use as default value
+        return self
 
-# Apply labels to tokenized data
-train_dataset = CustomDataset(tokenized_train_dataset, train_labels)
-eval_dataset = CustomDataset(tokenized_eval_dataset, eval_labels)
+    def transform(self, X):
+        # Transform the texts to a list of word vectors weighted by IDF
+        return [self.tfidf_weighted_vector(text) for text in X]
 
+    def tfidf_weighted_vector(self, text):
+        doc = nlp(text)
+        vectors = [self.word_vector(word) for word in doc]
+        return np.mean(vectors, axis=0) if vectors else np.zeros((len(doc[0].vector),))
 
-training_args = TrainingArguments(
-    output_dir='./results',
-    num_train_epochs=3,
-    per_device_train_batch_size=32,
-    per_device_eval_batch_size=64,
-    warmup_steps=500,
-    weight_decay=0.01,
-    logging_dir='./logs'
-)
+    def word_vector(self, word):
+        # Retrieve the word's TF-IDF score and multiply it with the word vector
+        vector = word.vector
+        idf_score = self.vectorizer.idf_.get(word.text, self.max_idf)
+        return vector * idf_score
 
-# Initialize trainer
-trainer=Trainer(
-    model=model,
-    args=training_args,
-    train_dataset=train_dataset,
-    eval_dataset=eval_dataset
-)
+class LinguisticFeatureTransformer(TransformerMixin):
+    def fit(self, X, y=None):
+        return self
 
-trainer.train()
+    def transform(self, texts):
+        return [self.extract_linguistic_features(text) for text in texts]
+
+    def extract_linguistic_features(self, text):
+        doc = nlp(text)
+        return {
+            'word_count': len(doc),
+            'sentence_count': len(list(doc.sents)),
+            'avg_word_length': np.mean([len(token) for token in doc]),
+            'noun_count': len([token for token in doc if token.pos_ == 'NOUN']),
+        }
+
+model = joblib.load('src/agent/model/spacy_model.pkl')
+# Create a pipeline
+pipeline = Pipeline([
+    ('features', FeatureUnion([
+        ('tfidf_vectors', TfidfWeightedVectors()),
+        ('linguistic', LinguisticFeatureTransformer())
+    ])),
+    ('scaler', StandardScaler()),
+    ('classifier', model)
+])
+X_train, X_test, y_train, y_test = train_test_split(texts, labels, test_size=0.2, shuffle=True)
+
+pipeline.fit(texts, labels)
