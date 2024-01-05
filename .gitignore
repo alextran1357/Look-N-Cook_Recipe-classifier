@@ -158,6 +158,8 @@ data/unclean_data-TRUE.txt
 data/binary_class_sentences-stage.csv
 data/food_list.txt
 src/agent/logs
+src/agent/model
+webpage/
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
