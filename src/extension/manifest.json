@@ -3,7 +3,7 @@
     "name": "Look N' Cook",
     "version": "1.0",
     "description": "Scans page for recipe and returns from in a better format",
-    "permissions": ["activeTab", "storage", "https://mmhhfdbck6.execute-api.us-east-2.amazonaws.com/LnC_data_processing/*"],
+    "host_permissions": ["https://mmhhfdbck6.execute-api.us-east-2.amazonaws.com/*"],
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
@@ -18,7 +18,8 @@
     "content_scripts": [
         {
             "js": ["content.js"],
-            "matches": ["<all_urls>"]
+            "matches": ["<all_urls>"],
+            "run_at": "document_start"
         }
     ],
     "icons": {
