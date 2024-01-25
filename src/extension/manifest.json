@@ -1,15 +1,15 @@
 {
     "manifest_version": 3,
     "name": "Look N' Cook",
-    "version": "1.0.0",
+    "version": "1.0",
     "description": "Scans page for recipe and returns from in a better format",
-    "permissions": ["activeTab"],
+    "permissions": ["activeTab", "storage", "https://mmhhfdbck6.execute-api.us-east-2.amazonaws.com/LnC_data_processing/*"],
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
-            "16": "icon16.png",
-            "48": "icon48.png",
-            "128": "icon128.png"
+            "16": "icons/icon16.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
         }
     },
     "background": {
@@ -22,8 +22,8 @@
         }
     ],
     "icons": {
-        "16": "icon16.png",
-        "48": "icon48.png",
-        "128": "icon128.png"
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
     }
 }

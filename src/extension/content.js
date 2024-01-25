@@ -1,20 +1,21 @@
-// function findRecipesOnPage() {
-//     // Logic to find recipes
-//     // This might involve parsing the DOM, looking for certain keywords, etc.
-//     // Return an array or other structure containing the recipe information
-//     return []; // Replace with actual recipe finding logic
-// }
-// function processText(text) {  
-//     console.log("test")
-//     return("THIS IS A TEST SENTENCE")
-// }
+// window.addEventListener('message', (event) => {
+//     console.log('Message from:', event.origin);
+//     if (event.origin !== null) {
+//         console.log("testing")
+//         return; // Ignore messages from unexpected sources
+//     }
+//     console.log('Received message:', event.data);
+//   });
 
-document.addEventListener('DOMContentLoaded', function() {
-    let allText = document.body.innerText;
+window.addEventListener('message', (event) => {
+    console.log('Message from:', event.origin);
 
-    chrome.runtime.sendMessage({ action: "sendData", data: allText });
+    // Allow messages from a null origin
+    if (event.origin !== "null") {
+        console.log("Origin is not null, ignoring the message.");
+        return; // Ignore messages from non-null origins
+    }
+
+    // Log the received message
+    console.log('Received message:', event.data);
 });
-
-// let text="test"
-// console.log("content.js2")
-// chrome.runtime.sendMessage({ action: "foundRecipes", data: text });
