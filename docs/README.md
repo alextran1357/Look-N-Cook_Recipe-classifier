@@ -30,7 +30,10 @@ The data gathering will take a little bit longer because I am not just looking f
 *Update: After a couple of tries of using my original scorer, it doesn't classify as well as I want it to. 
 I will be switch to a different method. Now, I will use 2 different files for uncleand data. One for only 'True' data, and another for 'False' data. This will require a little bit more work for me since I will now have to make sure I put them in the correct location. I also have to setup a new script to process the data.
 
-## **[] Data preprocessing**
+## **[X] Tune model**
+Tuning the model took a lot longer than I thought. I ended up using a small BERT model. I had to learn what all the variations did and compared the different models. Tried adding in dropout, regularization, and just normal layers with different activations. The general accuracy that I achieved was 90+%. I managed to get a smaller varient of the model to achieve and same performance of a much larger model.
+
+*Update: There has been a lot of problems with the models and had to switch a lot around. GCP isnt working like how I wanted and having it embedded into the chrome extension itself also isnt working out. I settled with AWS but that also caused complications a quite a long time. I solved everything but in the end, I switched to NLTK (Natural Language Toolkit). The size is a lot smaller and the accuracy is still up to my standard. I am finally done with this section!!!
 
 ## **[] Extension**
 After starting on this extension, I have come to thte conclusion that DistilBERT is too large of a model if i want to keep this extension working without the need for a server to host the model. I will be testing TinyBERT and possibily ALBERT.
@@ -39,5 +42,6 @@ After starting on this extension, I have come to thte conclusion that DistilBERT
 
 *Update: Turns out there were a lot more problems with deploying that I didn't know before. I switched back to using a small variant of BERT.
 
-## **[X] Tune model**
-Tuning the model took a lot longer than I thought. I ended up using a small BERT model. I had to learn what all the variations did and compared the different models. Tried adding in dropout, regularization, and just normal layers with different activations. The general accuracy that I achieved was 90+%. I managed to get a smaller varient of the model to achieve and same performance of a much larger model.
+*Update: In the latest update of my 'Tune Model' section, I updated the model and will also be updating the way i recieve information from AWS
+
+Now that I am done with the model, I will need to process the data coming from the model. The problem with the model is that it returns a huge list of sentences and its predictions. I will have to sort through that list to return back to the customer. I also want to implement a way to check for potential recipes on the page before sending of the list of sentences.
