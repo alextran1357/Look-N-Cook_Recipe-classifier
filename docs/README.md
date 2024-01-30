@@ -35,6 +35,9 @@ Tuning the model took a lot longer than I thought. I ended up using a small BERT
 
 *Update: There has been a lot of problems with the models and had to switch a lot around. GCP isnt working like how I wanted and having it embedded into the chrome extension itself also isnt working out. I settled with AWS but that also caused complications a quite a long time. I solved everything but in the end, I switched to NLTK (Natural Language Toolkit). The size is a lot smaller and the accuracy is still up to my standard. I am finally done with this section!!!
 
+## **[X] AWS Setup**
+I decided to host the model on AWS Lambda and hitting the API Gateway endpoint for my chrome extension. I ran into a lot of problems with the speed of the processes. I hadn't realized that the amount of memory allocated also scales with the computational power that you receive. I just assumed that since im not using all the memory, I wouldn't need to increase it... I ended up getting that solved and the time it takes from the page loading to sending the user the processed text is around 4-5 seconds which is not bad. In the future I can consider making that faster but at the moment, there is no need.
+
 ## **[] Extension**
 After starting on this extension, I have come to thte conclusion that DistilBERT is too large of a model if i want to keep this extension working without the need for a server to host the model. I will be testing TinyBERT and possibily ALBERT.
 
