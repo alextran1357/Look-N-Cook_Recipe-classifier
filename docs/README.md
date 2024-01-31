@@ -30,6 +30,8 @@ The data gathering will take a little bit longer because I am not just looking f
 *Update: After a couple of tries of using my original scorer, it doesn't classify as well as I want it to. 
 I will be switch to a different method. Now, I will use 2 different files for uncleand data. One for only 'True' data, and another for 'False' data. This will require a little bit more work for me since I will now have to make sure I put them in the correct location. I also have to setup a new script to process the data.
 
+*Update: The predicitions that I am getting back is not up to my standard so i will be start over with the model training
+
 ## **[X] Tune model**
 Tuning the model took a lot longer than I thought. I ended up using a small BERT model. I had to learn what all the variations did and compared the different models. Tried adding in dropout, regularization, and just normal layers with different activations. The general accuracy that I achieved was 90+%. I managed to get a smaller varient of the model to achieve and same performance of a much larger model.
 
