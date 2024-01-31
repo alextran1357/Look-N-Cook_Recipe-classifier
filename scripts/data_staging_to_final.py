@@ -1,7 +1,7 @@
 import csv
 
-source_csv_path = "data/binary_class_sentences-stage.csv"
-target_csv_path = "data/binary_class_sentences.csv"
+source_csv_path = "../data/binary_class_sentences-stage.csv"
+target_csv_path = "../data/binary_class_sentences.csv"
 
 # Open the target CSV file in append mode
 with open(target_csv_path, 'a', newline='', encoding='utf-8') as target_file:
