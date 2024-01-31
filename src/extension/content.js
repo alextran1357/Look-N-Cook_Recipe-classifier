@@ -1,21 +1,36 @@
-// window.addEventListener('message', (event) => {
-//     console.log('Message from:', event.origin);
-//     if (event.origin !== null) {
-//         console.log("testing")
-//         return; // Ignore messages from unexpected sources
-//     }
-//     console.log('Received message:', event.data);
-//   });
+// When page finishes loading, the extension needs to check if this is a recipe page or not
+// we can either restrict the pages, or we can leave it open and run some sort of script to 
+// check if there is a clump of recipes on a page
+document.addEventListener('DOMContentLoaded', function() {
+    var pageText = extractTextUsingTreeWalker(document.body)
+    chrome.runtime.sendMessage({type: "pageText", text: pageText}, function(response) {
+        console.log(response.farewell);
+    });
+});
 
-window.addEventListener('message', (event) => {
-    console.log('Message from:', event.origin);
+function extractTextUsingTreeWalker(rootNode) {
+    let text = '';
+    const walker = document.createTreeWalker(
+        rootNode,
+        NodeFilter.SHOW_TEXT, 
+        {
+            acceptNode: function(node) {
+                // Filter to only include text nodes that are not children of script, style, iframe, or noscript elements
+                return (node.parentNode.nodeName !== 'SCRIPT' &&
+                        node.parentNode.nodeName !== 'STYLE' &&
+                        node.parentNode.nodeName !== 'IFRAME' &&
+                        node.parentNode.nodeName !== 'NOSCRIPT') ?
+                        NodeFilter.FILTER_ACCEPT : 
+                        NodeFilter.FILTER_REJECT;
+            }
+        },
+        false
+    );
 
-    // Allow messages from a null origin
-    if (event.origin !== "null") {
-        console.log("Origin is not null, ignoring the message.");
-        return; // Ignore messages from non-null origins
+    let node;
+    while (node = walker.nextNode()) {
+        text += node.textContent + ' ';
     }
 
-    // Log the received message
-    console.log('Received message:', event.data);
-});
+    return text;
+}
