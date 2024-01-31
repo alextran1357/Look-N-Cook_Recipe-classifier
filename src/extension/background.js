@@ -4,8 +4,9 @@ chrome.runtime.onMessage.addListener(
             if (request.text) {
                 var text = request.text
                 var cleanedText = processText(text)
-                funcStatus = postDataToAPI(cleanedText)
-                console.log(funcStatus)
+                var data = postDataToAPI(cleanedText)
+                // prediction logic
+                recipeList = processPredictions(data)
             }
             sendResponse({farewell: "Finished"});
         }
@@ -51,4 +52,8 @@ function cleanSentence(sentence) {
     cleaned = cleaned.replace(/\s+/g, ' ');
     cleaned = cleaned.trim();
     return cleaned;
+}
+
+function processPredictions(predictions) { 
+    return predictions
 }
